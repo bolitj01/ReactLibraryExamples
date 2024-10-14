@@ -10,8 +10,8 @@ const HomePage = () => {
     <div>
       <h1>Welcome to the HomePage</h1>
       <p>This is a public page, accessible to everyone.</p>
-      {user ? <Logout/> : <Link to="/login">Login</Link>}
-       | <Link to="/profile">Profile</Link>
+      {user ? <Logout/> : <Link to="login">Login</Link>}
+       | <Link to="profile">Profile</Link>
     </div>
   );
 };

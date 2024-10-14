@@ -8,15 +8,15 @@ const Login = () => {
     const { login } = useAuth();
     const [username, setUsername] = useState('');
 
-    // Retrieve the state passed to this location, defaulting to home ('/') if none
+    // Retrieve the state passed to this location, defaulting to home ('/protected') if none
     const from = location.state?.from;
 
     const handleSubmit = (e) => {
         e.preventDefault();
         login({ username }); // Perform login
 
-        // Navigate to the originally requested page or default to '/'
-        navigate(from?.pathname || '/', { replace: true });
+        // Navigate to the originally requested page or default to '/protected'
+        navigate(from?.pathname || '/protected', { replace: true });
     };
 
     return (

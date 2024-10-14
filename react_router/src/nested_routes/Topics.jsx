@@ -15,13 +15,14 @@ const Topics = () => {
 
                 {/* Using state to put a query into a Link path */}
                 <li>
+                    <h5>Search for a topic</h5>
                     <input onChange={(e) => setQuery(e.target.value)} type="text" name="searchTxt" id="searchTxt" />
                     <Link to={`search/${query}`}>Search</Link>
                 </li>
             </ul>
 
             <Outlet />
-            {/* Nested routes/components render in place of Outlet */}
+            {/* Nested route components render in place of Outlet */}
         </div>
     )
 };

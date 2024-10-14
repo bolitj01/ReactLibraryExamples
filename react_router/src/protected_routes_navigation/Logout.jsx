@@ -7,7 +7,7 @@ const Logout = () => {
     const navigate = useNavigate();
 
     return (
-        <button onClick={() => {logout(); navigate("/")}}>Logout</button>
+        <button onClick={() => {logout(); navigate("/protected")}}>Logout</button>
     )
 }
 
