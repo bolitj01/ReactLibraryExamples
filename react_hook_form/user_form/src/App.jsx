@@ -17,7 +17,7 @@ export default function App() {
       )
       .required('Password is required'),
     age: yup.number()
-      .positive().integer()
+      .positive("Needs to be a positive number").integer("Half-birthdays don't count")
       .min(18, 'You must be at least 18 years old')
       .required('Age is required'),
     wantsEmails: yup.boolean()
@@ -25,7 +25,7 @@ export default function App() {
 
   //React Hook Form setup
   const { register, handleSubmit, formState: { errors } } = useForm(
-    { resolver: yupResolver(schema) }
+    { resolver: yupResolver(schema), mode: 'onChange' },
   );
 
   //Show form data on submit

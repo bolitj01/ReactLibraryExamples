@@ -1,17 +1,22 @@
 import ParticipantCard from "./ParticipantCard";
 import styles from "./styles/Room.module.css";
-import { useDispatch } from 'react-redux';
-import { addToRoom } from './participantsReducer';
+import { useDispatch, useSelector } from "react-redux";
+import { addToRoom } from "./participantsReducer";
 
 // Room component that handles drag and drop of participants into the room
 const Room = ({ roomIndex }) => {
-  const participants = useSelector((state) => state.participants.participants); // Access Redux state
+  const participants = useSelector((state) => {
+    return state.participants.rooms[roomIndex];
+  });
+
+  console.log("Room " + roomIndex + " rendered");
+
   const dispatch = useDispatch();
 
   const handleDrop = (e) => {
     e.preventDefault();
     const participantId = e.dataTransfer.getData("participantId");
-    dispatch(addToRoom({participantId, roomIndex}));
+    dispatch(addToRoom({ participantId, roomIndex }));
   };
 
   const handleDragOver = (e) => {
