@@ -1,17 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
-import LibraryContext from '../../context/LibraryContext';
+import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import useDebounce from '../../hooks/useDebounce';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import Image from 'mui-image';
 import useSongSearch from '../../hooks/useSearchSong';
-
+import SongCard from '../SongCard';
 
 const SearchView = () => {
     const [query, setQuery] = useState("");
@@ -26,37 +18,16 @@ const SearchView = () => {
 
     //Fetch songs using API after user is done typing for 1 second
     useDebounce(() => {
-        console.log("Query Time");
+        console.log("Fetching songs with query: ", query);
         searchSong(query, setSongs);
     }, 1000, [query]);
-
-    const { library, setLibrary } = useContext(LibraryContext);
 
     return (
         <>
             <SearchBar setQuery={setQuery}></SearchBar>
             <List sx={{ width: "100%"}}>
-                {songs.map((song) => (
-                    <>
-                        <ListItem>
-                            <ListItemText
-                                primary={
-                                    <>
-                                        <Typography>
-                                            {song.title}
-                                        </Typography>
-                                        <Typography>
-                                            {song.artist}
-                                        </Typography>
-                                    </>
-                                }
-                            ></ListItemText>
-                            <ListItemAvatar variant="outlined">
-                                <Avatar src={song.album.coverURL} variant="rounded" sx={{width: 70, height: 70}}></Avatar>
-                            </ListItemAvatar>
-                            <Divider></Divider>
-                        </ListItem>
-                    </>
+                {songs.map((song, index) => (
+                    <SongCard song={song} key={index} ></SongCard>
                 ))}
             </List>
         </>

@@ -1,32 +1,21 @@
-import React from 'react';
-import SearchView from './search/SearchView';
-import { Container } from '@mui/system';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Library from './library/Library';
-import { Typography } from '@mui/material';
+import SearchView from "./search/SearchView";
+import Library from "./library/Library";
+import { Typography } from "@mui/material";
+import { LibraryProvider } from "../context/LibraryContext";
 
 //View changes depending on selected view from drawer
 const MainView = ({ selectedView }) => {
-    switch (selectedView) {
-        case "Search":
-            return (
+  return (
+    <LibraryProvider>
+      {selectedView === "Search" ? (
+        <SearchView />
+      ) : selectedView === "Library" ? (
+        <Library />
+      ) : (
+        <Typography variant="h3">Select a view from the drawer</Typography>
+      )}
+    </LibraryProvider>
+  );
+};
 
-                <SearchView></SearchView>
-
-            )
-
-        case "Library":
-            return (
-
-                <Library></Library>
-
-            )
-        default:
-            return (
-                <Typography>No View Selected</Typography>
-            )
-    }
-}
-
-export default MainView
+export default MainView;
