@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import './App.css';
+import styled from 'styled-components';
 
 export default function App() {
 
@@ -34,32 +35,47 @@ export default function App() {
 
   console.log(errors);
 
+  const StyledErrorMessage = styled.p`
+    color: red;
+  `;
+
+  const StyledForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1rem;
+
+    input {
+      font-size: 2rem;
+    }
+  `;
+
   return (
     <>
-      <form onSubmit={handleSubmit(submitForm)}>
+      <StyledForm onSubmit={handleSubmit(submitForm)}>
         <div>
           <input type="text" placeholder="Username"
             {...register("username")} />
 
           {/* Display any errors next to the form control */}
-          {errors.username && errors.username.message}
+          <StyledErrorMessage>{errors.username && errors.username.message}</StyledErrorMessage>
         </div>
 
         <div>
           <input type="password" placeholder="Password" {...register("password")} />
-          {errors.password && errors.password.message}
+          <StyledErrorMessage>{errors.password && errors.password.message}</StyledErrorMessage>
         </div>
 
         <div>
           <input type="number" placeholder="Age" {...register("age")} />
-          {errors.age && errors.age.message}
+          <StyledErrorMessage>{errors.age && errors.age.message}</StyledErrorMessage>
         </div>
 
         <div>
           <label htmlFor="checkbox">Do you want lots of unnecessary emails? </label><input name="checkbox" type="checkbox" placeholder="WantsEmails" {...register("WantsEmails", {})} />
         </div>
         <input type="submit" />
-      </form>
+      </StyledForm>
       <p>
         { //Display form data if it is successfully submitted
           Object.keys(formData).length !== 0 && JSON.stringify(formData)
