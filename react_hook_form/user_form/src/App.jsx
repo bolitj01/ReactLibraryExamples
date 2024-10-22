@@ -26,7 +26,7 @@ export default function App() {
 
   //React Hook Form setup
   const { register, handleSubmit, formState: { errors } } = useForm(
-    { resolver: yupResolver(schema), mode: 'onChange' },
+    { resolver: yupResolver(schema), mode: 'onSubmit' },
   );
 
   //Show form data on submit

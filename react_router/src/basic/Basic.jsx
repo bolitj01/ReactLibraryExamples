@@ -17,9 +17,6 @@ const Basic = () => (
         <Route path="about" element={<About />} />
         <Route path="profile" element={<Profile />} />
       </Routes>
-
-      {/* Outlet to render nested routes */}
-      <Outlet />
     </div>
 );
 

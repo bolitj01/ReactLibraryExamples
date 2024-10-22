@@ -7,14 +7,12 @@ import { v4 } from "uuid";
  * {
  *  id: string,
  *  name: string,
- *  room: number | null,
  * }
  */
 
 /**
  * Room Structure:
- * [participants: {}],
- * rooms[0] is the waiting room where participants are placed by default
+ * [participants: []],
  */
 
 const roomCount = 9;
