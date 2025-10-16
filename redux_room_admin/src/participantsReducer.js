@@ -27,18 +27,18 @@ const roomsSlice = createSlice({
   name: "rooms",
   initialState,
   reducers: {
-    addParticipant: (state, action) => {
+    addParticipant: (stateCopy, action) => {
       // New participant is added to the waiting room
-      state.waitingRoom.push({
+      stateCopy.waitingRoom.push({
         id: v4(),
         name: action.payload,
       });
     },
-    removeParticipant: (state, action) => {
+    removeParticipant: (stateCopy, action) => {
       const { participantId } = action.payload;
-      state.rooms.forEach((room) => {
+      stateCopy.rooms.forEach((room) => {
         const index = room.findIndex((p) => p.id === participantId);
-        state.waitingRoom.push(room[index]); // Add participant back to waiting room
+        stateCopy.waitingRoom.push(room[index]); // Add participant back to waiting room
         if (index !== -1) {
           room.splice(index, 1); // Remove participant from room
         }

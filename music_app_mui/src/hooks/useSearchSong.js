@@ -1,46 +1,44 @@
-const options = {
-    method: 'GET',
-    headers: {
-        'X-RapidAPI-Key': 'cdae9db55dmsh258b9fd9710aea9p1597f1jsn02d0f6ee3cf0',
-        'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
-    }
-};
-
-const searchParams = {
-    resultCount: 20,
-    type: "track",
-}
+//Get the token from token.json in tokens folder (must be generated using genToken.js)
+import tokenData from "../tokens/token.json";
 
 //Search song from Spotify API
 const useSongSearch = () => {
+  async function searchSong(query, setSongs) {
+    const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(
+      query
+    )}&type=track&limit=20`;
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${tokenData.token}`,
+        },
+      });
 
-    async function searchSong(query, setSongs) {
-        try {
-            const response = await fetch(`https://spotify23.p.rapidapi.com/search/?q=${query}&type=tracks&offset=0&limit=${searchParams.resultCount}&numberOfTopResults=${searchParams.resultCount}`, options);
-            const data = await response.json();
-            const songs = [];
-            data.tracks.items.map((song) => {
-                songs.push({
-                    id: song.data.id,
-                    title: song.data.name,
-                    artist: song.data.artists.items[0].profile.name,
-                    album: {
-                        title: song.data.albumOfTrack.name,
-                        coverURL: song.data.albumOfTrack.coverArt.sources[0].url
-                    }
-                });
-            });
-    
-            console.log(songs);
-            setSongs(songs);
-        }
-        catch (err) {
-            console.error(err);
-        }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const songs = [];
+      data.tracks.items.map((song) => {
+        songs.push({
+          id: song.id,
+          title: song.name,
+          artist: song.artists[0].name,
+          album: {
+            title: song.album.name,
+            coverURL: song.album.images[0].url,
+          },
+        });
+      });
+
+      console.log(songs);
+      setSongs(songs);
+    } catch (err) {
+      console.error(err);
     }
+  }
 
-    return {searchSong};
+  return { searchSong };
 };
 
 export default useSongSearch;
-

@@ -1,5 +1,8 @@
 import {useCallback, useRef, useEffect} from 'react';
 
+/*
+    This hook handles setting, clearing, and resetting a timeout.
+*/
 export default function useTimeout(callback, delay) {
     const callbackRef = useRef(callback);
     const timeoutRef = useRef();

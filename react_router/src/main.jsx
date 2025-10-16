@@ -4,9 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ExampleNavigator from "./ExampleNavigator";
 import Basic from "./basic/Basic";
 import Nested from "./nested_routes/Nested";
-import Topics from "./nested_routes/Topics";
-import Topic from "./nested_routes/Topic";
-import Search from "./nested_routes/Search";
 import Protected from "./protected_routes_navigation/Protected";
 
 const router = createBrowserRouter([
